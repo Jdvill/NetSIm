@@ -1,23 +1,32 @@
 #include "network.h"
 #include <algorithm>
 
-void resize(const size_t&)
+void resize(const size_t& n)
 {
+	values.clear();
+}
+
+bool Network::add_link(const size_t& a, const size_t& b)
+{
+	for(auto I : links)
+	{
+		if(((I.first == a)&&(I.second == b))||((I.first == b) && (I.second == a)))
+		{
+			return false;
+		}
+	}
+	links.insert(std::makepair(a,b));
+	links.insert(std::makepair(b,a));
+	return true;
+}
+
+size_t random_connect(const double& a)
+{
+	
 	
 }
 
-bool add_link(const size_t&, const size_t&)
-{
-	
-}
-
-size_t random_connect(const double&)
-{
-	
-	
-}
-
-size_t set_values(const std::vector<double>&)
+size_t set_values(const std::vector<double>& vec)
 {
 	
 	
@@ -45,7 +54,7 @@ std::vector<double> Network::sorted_values() const
 	return vals;
 }
 
-std::vector<size_t> neighbors(const size_t&) const
+std::vector<size_t> neighbors(const size_t& a) const
 {
 	
 	
