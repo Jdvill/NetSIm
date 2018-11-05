@@ -1,16 +1,24 @@
 #include "network.h"
+#include "random.h"
 #include <algorithm>
+#include <iterator>
+
+typedef std::multimap <size_t, size_t> iterator MIterator;
 
 void resize(const size_t& n)
 {
-	values.clear();
+	values.resize(n);
+	RandomNumbers::normal(values);
 }
 
 bool Network::add_link(const size_t& a, const size_t& b)
 {
+	if((a > Network::size())||(b > Network::size())){
+		return false;
+	}
 	for(auto I : links)
 	{
-		if(((I.first == a)&&(I.second == b))||((I.first == b) && (I.second == a)))
+		if(((I->first == a)&&(I->second == b))||((I->first == b) && (I->second == a)))
 		{
 			return false;
 		}
@@ -22,12 +30,13 @@ bool Network::add_link(const size_t& a, const size_t& b)
 
 size_t random_connect(const double& a)
 {
-	
+	links.clear();
 	
 }
 
 size_t set_values(const std::vector<double>& vec)
 {
+	
 	
 	
 }
@@ -56,6 +65,11 @@ std::vector<double> Network::sorted_values() const
 
 std::vector<size_t> neighbors(const size_t& a) const
 {
-	
-	
+	std::vector<size_t> neighborslist;
+	std::pair<MIterator, MIterator> range = links.equal_range(values[a]);
+	for(MIterator it = range->first; it != range->second; it++)
+	{
+		neighborslist.pushback(it->second);
+	}
+	return neighborslist;
 }
