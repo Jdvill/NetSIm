@@ -40,11 +40,19 @@ size_t random_connect(const double& a)
 		{
 			if(i!=b)
 			{
-			vec.pushback(i);
+			vec.push_back(i);
 			}
 		}
 		RandomNumbers::shuffle(vec);
-		size_t x(1);		
+		size_t x(0);
+		while(x<n)||(n<vec.size())
+			if(Network::addlink(b,x))
+			{
+				++x;
+			}else{
+				++x;
+				++n;
+		}		
 	}
 	
 }
