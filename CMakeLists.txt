@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(Network_simulation)
 
+file(GLOB_RECURSE NetSim_SOURCES "src/*.cpp")
+file(GLOB_RECURSE NetSim_HEADERS "src/*.h")
+
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "" FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
@@ -12,9 +15,7 @@ option(test "Build tests." ON)
 include_directories("/usr/local/include" ${CMAKE_SOURCE_DIR}/include)
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
-file(GLOB_RECURSE SOURCES ("src/*.cpp"))
-
-add_executable(NetSim ${SOURCES})
+add_executable(NetSim ${NetSim_SOURCES})
 
 if (test)
   enable_testing()
